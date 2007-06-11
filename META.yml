@@ -17,4 +17,4 @@ no_index:
 requires: 
   DBIx::Simple: 1.28
   perl: 5.8.1
-version: 0.01
+version: 0.02

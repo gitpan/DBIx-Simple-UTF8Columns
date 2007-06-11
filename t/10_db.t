@@ -11,13 +11,13 @@ eval { DBD::SQLite->VERSION >= 1 }
     or plan skip_all => 'DBD::SQLite >= 1.00 is required';
 
 #plan 'no_plan';
-plan tests => 9;
+plan tests => 12;
 
 my $db = DBIx::Simple::UTF8Columns->connect(
 	'dbi:SQLite:dbname=:memory:',
 	'', '',
 	{
-		RaiseError => 1,
+		RaiseError => 0,
 	}
 );
 ok($db);
@@ -39,6 +39,11 @@ ok($db->query('INSERT INTO xyzzy (FOO, bar, baz) VALUES (?, ?, ?)', qw( かな �
 is_deeply(scalar $db->query('SELECT * FROM xyzzy')->hashes, [ { foo => '漢字', bar => '☺', baz => '１２３' }, { foo => 'かな', bar => '☻', baz => '４５６' } ]);
 
 is_deeply($db->query('SELECT bar FROM xyzzy WHERE baz = ?', '１２３')->hash, { bar => '☺' });
+
+# test when error occurs
+ok($db->begin());
+ok($db->query('INSERT INTO xyzzy (FXX) VALUES (??)', 'dummy') || 1);
+ok($db->rollback());
 
 # avoid warnings
 $db->lc_columns;

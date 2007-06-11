@@ -12,7 +12,7 @@ $Carp::Internal{$_} = 1
 
 package DBIx::Simple::UTF8Columns;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use base qw( DBIx::Simple );
 
@@ -73,7 +73,7 @@ sub query {
 
     my $result = $self->SUPER::query($query, @binds);
     
-    if (defined $result) {
+    if ($self->{success} && defined $result) {
         $result->{_encoder} = $self->_encoder;
     }
 
