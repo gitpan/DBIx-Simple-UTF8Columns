@@ -12,7 +12,7 @@ $Carp::Internal{$_} = 1
 
 package DBIx::Simple::UTF8Columns;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use base qw( DBIx::Simple );
 

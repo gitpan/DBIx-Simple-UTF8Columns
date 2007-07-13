@@ -9,7 +9,7 @@ eval { require DBD::SQLite; 1 }
     or plan skip_all => 'DBD::SQLite is required';
 eval { DBD::SQLite->VERSION >= 1 }
     or plan skip_all => 'DBD::SQLite >= 1.00 is required';
-eval { use DBIx::Simple::OO; 1 }
+eval { require DBIx::Simple::OO; 1 }
     or plan skip_all => 'DBIx::Simple::OO is required';
 
 #plan 'no_plan';
